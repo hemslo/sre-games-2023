@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: xdp-drop
+spec:
+  hostNetwork: true
+  containers:
+  - name: xdp-drop
+    image: alpine:3.18.3
+    command: ["tail", "-f", "/dev/null"]
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: lib-modules
+      mountPath: /lib/modules
+    - name: usr-src
+      mountPath: /usr/src
+    - name: kernel-debug
+      mountPath: /sys/kernel/debug
+  volumes:
+  - name: lib-modules
+    hostPath:
+      path: /lib/modules
+  - name: usr-src
+    hostPath:
+      path: /usr/src
+  - name: kernel-debug
+    hostPath:
+      path: /sys/kernel/debug
