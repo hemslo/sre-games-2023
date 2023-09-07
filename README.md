@@ -14,15 +14,6 @@
 10. SHELL1: verify network is working again `curl -I https://www.google.com`
 
 
-## Investigate and fix steps
-
-After xdp is attached, network is not working. Investigate and fix steps:
-
-1. `sudo bpftool prog tracelog` to check logs
-2. `sudo bpftool prog show | grep xdp` to find xdp program
-3. `ip link show` to find attached device
-4. `sudo bpftool net detach xdpgeneric dev <dev>` to detach xdp
-
 ## Hints
 
 1. [eCHO episode 11: Exploring bpftool with Quentin Monnet](https://www.youtube.com/watch?v=1EOLh3zzWP4)
