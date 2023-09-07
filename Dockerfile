@@ -10,5 +10,6 @@ RUN apk add --no-cache \
 COPY xdp_drop.* .
 
 ENV DEVICE=cni0
+ENV SLEEP_TIME=0
 
 CMD ["python3", "xdp_drop.py"]

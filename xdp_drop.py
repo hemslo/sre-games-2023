@@ -12,6 +12,7 @@ def main():
         exit(1)
     bpf = BPF(src_file="xdp_drop.c", cflags=["-w", "-DRETURNCODE=XDP_DROP"])
     fn = bpf.load_func("xdp_prog_drop", BPF.XDP)
+    time.sleep(int(os.environ.get("SLEEP_TIME", 0)))
     bpf.attach_xdp(device, fn, 0)
     print("Dropping packets, hit CTRL+C to stop")
     while True:

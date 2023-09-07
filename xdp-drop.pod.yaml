@@ -6,12 +6,14 @@ spec:
   hostNetwork: true
   containers:
   - name: xdp-drop
-    image: ghcr.io/hemslo/sre-games-2023:sha-f53c89b
+    image: ghcr.io/hemslo/sre-games-2023:sha-545a120
     securityContext:
       privileged: true
     env:
     - name: DEVICE
       value: cni0
+    - name: SLEEP_TIME
+      value: "60"
     volumeMounts:
     - name: lib-modules
       mountPath: /lib/modules

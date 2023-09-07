@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: xdp-drop
+  labels:
+    k8s-app: xdp-drop
+spec:
+  selector:
+    matchLabels:
+      name: xdp-drop
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: xdp-drop
+    spec:
+      hostNetwork: true
+      containers:
+      - name: xdp-drop
+        image: ghcr.io/hemslo/sre-games-2023:sha-545a120
+        securityContext:
+          privileged: true
+        env:
+        - name: DEVICE
+          value: cni0
+        - name: SLEEP_TIME
+          value: "60"
+        volumeMounts:
+        - name: lib-modules
+          mountPath: /lib/modules
+        - name: usr-src
+          mountPath: /usr/src
+        - name: kernel-debug
+          mountPath: /sys/kernel/debug
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules
+      - name: usr-src
+        hostPath:
+          path: /usr/src
+      - name: kernel-debug
+        hostPath:
+          path: /sys/kernel/debug
