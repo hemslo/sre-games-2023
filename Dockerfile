@@ -4,7 +4,8 @@ WORKDIR /app
 
 RUN apk add --no-cache \
     bcc-doc \
-    bcc-tools
+    bcc-tools \
+    bpftool
 
 COPY xdp_drop.* .
 
