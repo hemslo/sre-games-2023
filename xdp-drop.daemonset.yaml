@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: xdp-drop
   labels:
@@ -21,7 +21,7 @@ spec:
           privileged: true
         env:
         - name: DEVICE
-          value: cni0
+          value: br-ex
         - name: SLEEP_TIME
           value: "60"
         volumeMounts:
